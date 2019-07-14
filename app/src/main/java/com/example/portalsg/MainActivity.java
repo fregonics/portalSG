@@ -49,14 +49,14 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        /*FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -74,6 +74,8 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setLayoutManager(layoutManager);
 
         new WebReader().execute("void");
+
+
     }
 
     @Override
@@ -174,7 +176,7 @@ public class MainActivity extends AppCompatActivity
         public void onBindViewHolder(MyViewHolder holder, int position) {
             // - get element from your dataset at this position
             // - replace the contents of the view with that element
-            holder.title.setText(mDataset.get(position).titulo);z
+            holder.title.setText(mDataset.get(position).titulo);
             holder.details.setText(mDataset.get(position).detalhes);
             Glide.with(getApplicationContext()).load(mDataset.get(position).thumbnail).into(holder.image);
         }
@@ -190,6 +192,8 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected PostsPage doInBackground(String... strings) {
             PostsPage postsPage;
+            Log.d(WebReader.class.getSimpleName(), "VAI LER");
+
             try {
                 postsPage = new PostsPage(1);
                 Log.d(WebReader.class.getSimpleName(), "LEU");
@@ -203,13 +207,15 @@ public class MainActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(PostsPage postsPage) {
             super.onPostExecute(postsPage);
+            Log.d(WebReader.class.getSimpleName(), "NO POST EXECUTE");
             if(postsPage == null) {
                 Log.d(WebReader.class.getSimpleName(), "NÃO PASSOU CERTO");
             }
             mPostsPage = postsPage;
+            Log.d(WebReader.class.getSimpleName(),"LEU TITULO: " + mPostsPage.get(0).titulo);
             mAdapter = new MyAdapter(mPostsPage);
             recyclerView.setAdapter(mAdapter);
+
         }
     }
-
 }
