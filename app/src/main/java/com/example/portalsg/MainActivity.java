@@ -1,5 +1,6 @@
 package com.example.portalsg;
 
+import android.content.Intent;
 import android.icu.util.LocaleData;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -35,12 +36,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnPreviewClickListener {
 
     RecyclerView recyclerView;
     RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager layoutManager;
     PostsPage mPostsPage;
+    OnPreviewClickListener mainOnPreviewClickListener = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,28 +137,46 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    public void onPreviewClick(int position) {
+        Intent intent = new Intent(this, ArticleActivity.class);
+        intent.putExtra("url", mPostsPage.get(position).url);
+        startActivity(intent);
+    }
+
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         PostsPage mDataset;
+        OnPreviewClickListener mOnpreviewClickListener;
 
         // Provide a reference to the views for each data item
         // Complex data items may need more than one view per item, and
         // you provide access to all the views for a data item in a view holder
-        public class MyViewHolder extends RecyclerView.ViewHolder {
+        public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
             // each data item is just a string in this case
             public TextView title;
             public TextView details;
             public ImageView image;
-            public MyViewHolder(View v) {
+            OnPreviewClickListener onPreviewClickListener;
+
+            public MyViewHolder(View v, OnPreviewClickListener onPreviewClickListener) {
                 super(v);
                 title = v.findViewById(R.id.preview_title);
                 details = v.findViewById(R.id.preview_details);
                 image = v.findViewById(R.id.preview_img);
+                this.onPreviewClickListener = onPreviewClickListener;
+                v.setOnClickListener(this);
+            }
+
+            @Override
+            public void onClick(View view) {
+                onPreviewClickListener.onPreviewClick(getAdapterPosition());
             }
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-            public MyAdapter(PostsPage posts) {
+        public MyAdapter(PostsPage posts, OnPreviewClickListener onPreviewClickListener) {
             mDataset = posts;
+            mOnpreviewClickListener = onPreviewClickListener;
         }
 
         // Create new views (invoked by the layout manager)
@@ -167,7 +187,7 @@ public class MainActivity extends AppCompatActivity
             View v = (View) LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.post_preview_layout, parent, false);
 
-            MyViewHolder vh = new MyViewHolder(v);
+            MyViewHolder vh = new MyViewHolder(v,mOnpreviewClickListener);
             return vh;
         }
 
@@ -186,6 +206,7 @@ public class MainActivity extends AppCompatActivity
         public int getItemCount() {
             return mDataset.size();
         }
+
     }
 
     private class WebReader extends AsyncTask<String, String, PostsPage> {
@@ -213,9 +234,10 @@ public class MainActivity extends AppCompatActivity
             }
             mPostsPage = postsPage;
             Log.d(WebReader.class.getSimpleName(),"LEU TITULO: " + mPostsPage.get(0).titulo);
-            mAdapter = new MyAdapter(mPostsPage);
+            mAdapter = new MyAdapter(mPostsPage, mainOnPreviewClickListener);
             recyclerView.setAdapter(mAdapter);
 
         }
+
     }
 }
