@@ -9,14 +9,17 @@ import java.util.ArrayList;
 
 public class ContentPage {
     public String title;
+    public String headerImage;
     ArrayList<String> paragraphs;
 
     final int TITLE_INDEX = 0;
     final int ARTICLE_INDEX = 1;
+    final int HEADER_IMAGE_INDEX = 2;
 
     public ContentPage(String url) throws Exception {
         Elements[] elements = ArticleParser.parse(url);
         this.title = elements[TITLE_INDEX].first().text();
+        this.headerImage = elements[HEADER_IMAGE_INDEX].first().attr("src");
 
         Elements article = elements[ARTICLE_INDEX];
         paragraphs = new ArrayList<String>();

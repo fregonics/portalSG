@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -23,15 +24,14 @@ public class ArticleActivity extends AppCompatActivity {
     LinearLayout mLinearLayout;
     String mURL;
     Toolbar toolbar;
+    ImageView mHeaderImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article);
         toolbar = findViewById(R.id.toolbar);
-
-        ImageView image;
-
+        mHeaderImage = findViewById(R.id.header_image);
 
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +69,7 @@ public class ArticleActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
+            Glide.with(getApplicationContext()).load(mContentPage.headerImage).into(mHeaderImage);
             TextView tvTitle = new TextView(getApplicationContext());
             final LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);

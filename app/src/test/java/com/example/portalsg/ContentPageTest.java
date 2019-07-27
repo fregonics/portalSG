@@ -13,6 +13,7 @@ public class ContentPageTest {
         final String CORRIDA_APAE_URL = "https://www.sgagora.com.br/sg/com-participacao-de-alunos-da-apae-7a-corrida-da-cenoura-e-realizada-em-sao-gotardo/";
         try {
             ContentPage page = new ContentPage(CORRIDA_APAE_URL);
+            System.out.println(page.headerImage);
             ArrayList<String> paragraphs = page.showParagraphs();
             for(String s: paragraphs)
                 System.out.println(s);
