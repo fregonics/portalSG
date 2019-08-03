@@ -33,6 +33,7 @@ import android.view.Menu;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity
     RecyclerView.LayoutManager layoutManager;
     PostsPage mPostsPage;
     OnPreviewClickListener mainOnPreviewClickListener = this;
+    ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+        mProgressBar = findViewById(R.id.posts_progress_bar);
 
         recyclerView = findViewById(R.id.post_previews);
         recyclerView.setHasFixedSize(true);
@@ -75,7 +78,7 @@ public class MainActivity extends AppCompatActivity
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        new WebReader().execute("void");
+        new PostsPageReaderTask().execute("void");
 
 
     }
@@ -209,34 +212,40 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private class WebReader extends AsyncTask<String, String, PostsPage> {
+    private class PostsPageReaderTask extends AsyncTask<String, String, PostsPage> {
         @Override
         protected PostsPage doInBackground(String... strings) {
             PostsPage postsPage;
-            Log.d(WebReader.class.getSimpleName(), "VAI LER");
+            Log.d(PostsPageReaderTask.class.getSimpleName(), "VAI LER");
 
             try {
                 postsPage = new PostsPage(1);
-                Log.d(WebReader.class.getSimpleName(), "LEU");
+                Log.d(PostsPageReaderTask.class.getSimpleName(), "LEU");
                 return postsPage;
             } catch (Exception e) {
-                Log.d(WebReader.class.getSimpleName(), "NÃO CONSEGUIU LER");
+                Log.d(PostsPageReaderTask.class.getSimpleName(), "NÃO CONSEGUIU LER");
             }
             return null;
         }
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
         protected void onPostExecute(PostsPage postsPage) {
             super.onPostExecute(postsPage);
-            Log.d(WebReader.class.getSimpleName(), "NO POST EXECUTE");
+            Log.d(PostsPageReaderTask.class.getSimpleName(), "NO POST EXECUTE");
             if(postsPage == null) {
-                Log.d(WebReader.class.getSimpleName(), "NÃO PASSOU CERTO");
+                Log.d(PostsPageReaderTask.class.getSimpleName(), "NÃO PASSOU CERTO");
             }
             mPostsPage = postsPage;
-            Log.d(WebReader.class.getSimpleName(),"LEU TITULO: " + mPostsPage.get(0).titulo);
+            Log.d(PostsPageReaderTask.class.getSimpleName(),"LEU TITULO: " + mPostsPage.get(0).titulo);
             mAdapter = new MainRecyclerviewAdapter(mPostsPage, mainOnPreviewClickListener);
             recyclerView.setAdapter(mAdapter);
-
+            mProgressBar.setVisibility(View.INVISIBLE);
         }
 
     }
