@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
+    public class MainRecyclerviewAdapter extends RecyclerView.Adapter<MainRecyclerviewAdapter.MyViewHolder> {
         PostsPage mDataset;
         OnPreviewClickListener mOnpreviewClickListener;
 
@@ -174,14 +174,14 @@ public class MainActivity extends AppCompatActivity
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        public MyAdapter(PostsPage posts, OnPreviewClickListener onPreviewClickListener) {
+        public MainRecyclerviewAdapter(PostsPage posts, OnPreviewClickListener onPreviewClickListener) {
             mDataset = posts;
             mOnpreviewClickListener = onPreviewClickListener;
         }
 
         // Create new views (invoked by the layout manager)
         @Override
-        public MyAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
+        public MainRecyclerviewAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                          int viewType) {
             // create a new view
             View v = (View) LayoutInflater.from(parent.getContext())
@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity
             }
             mPostsPage = postsPage;
             Log.d(WebReader.class.getSimpleName(),"LEU TITULO: " + mPostsPage.get(0).titulo);
-            mAdapter = new MyAdapter(mPostsPage, mainOnPreviewClickListener);
+            mAdapter = new MainRecyclerviewAdapter(mPostsPage, mainOnPreviewClickListener);
             recyclerView.setAdapter(mAdapter);
 
         }
