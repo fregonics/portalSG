@@ -4,6 +4,15 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <TextView
+        android:id="@+id/tv_error_reading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Não foi possível ler.\nVerifique sua conexão"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:textSize="20dp"/>
+
     <ProgressBar
         android:id="@+id/posts_progress_bar"
         style="?android:attr/progressBarStyle"

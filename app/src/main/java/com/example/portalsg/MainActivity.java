@@ -1,7 +1,10 @@
 package com.example.portalsg;
 
+import android.content.Context;
 import android.content.Intent;
 import android.icu.util.LocaleData;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity
     PostsPage mPostsPage;
     OnPreviewClickListener mainOnPreviewClickListener = this;
     ProgressBar mProgressBar;
+    TextView mErrorReadingMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +74,8 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
         mProgressBar = findViewById(R.id.posts_progress_bar);
+        mErrorReadingMessage = findViewById(R.id.tv_error_reading);
+        mErrorReadingMessage.setVisibility(View.INVISIBLE);
 
         recyclerView = findViewById(R.id.post_previews);
         recyclerView.setHasFixedSize(true);
@@ -78,7 +84,18 @@ public class MainActivity extends AppCompatActivity
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        new PostsPageReaderTask().execute("void");
+        ConnectivityManager cm = (ConnectivityManager) getApplicationContext()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+
+
+        if(activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
+            new PostsPageReaderTask().execute("void");
+        }
+        else {
+            mErrorReadingMessage.setVisibility(View.VISIBLE);
+            mProgressBar.setVisibility(View.INVISIBLE);
+        }
 
 
     }
@@ -224,8 +241,8 @@ public class MainActivity extends AppCompatActivity
                 return postsPage;
             } catch (Exception e) {
                 Log.d(PostsPageReaderTask.class.getSimpleName(), "NÃO CONSEGUIU LER");
+                return null;
             }
-            return null;
         }
 
         @Override
@@ -240,6 +257,7 @@ public class MainActivity extends AppCompatActivity
             Log.d(PostsPageReaderTask.class.getSimpleName(), "NO POST EXECUTE");
             if(postsPage == null) {
                 Log.d(PostsPageReaderTask.class.getSimpleName(), "NÃO PASSOU CERTO");
+                mErrorReadingMessage.setVisibility(View.VISIBLE);
             }
             mPostsPage = postsPage;
             Log.d(PostsPageReaderTask.class.getSimpleName(),"LEU TITULO: " + mPostsPage.get(0).titulo);
