@@ -1,4 +1,4 @@
-package com.example.portalsg.datareader;
+package com.example.portalsg;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

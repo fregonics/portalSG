@@ -1,9 +1,9 @@
 package com.example.portalsg.datareader;
 
+import com.example.portalsg.ArticleParser;
+
 import org.jsoup.select.Elements;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class ArticleParserTest {
 

@@ -1,10 +1,10 @@
 package com.example.portalsg.preview;
 
+import com.example.portalsg.PostsPage;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
-
-import static org.junit.Assert.*;
 
 public class PostsPageTest {
 

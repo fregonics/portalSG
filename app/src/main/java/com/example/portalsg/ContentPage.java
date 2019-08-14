@@ -1,7 +1,5 @@
 package com.example.portalsg;
 
-import com.example.portalsg.datareader.ArticleParser;
-
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 

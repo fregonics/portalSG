@@ -1,12 +1,6 @@
 package com.example.portalsg;
 
-import android.util.Log;
-
-import com.example.portalsg.datareader.PageReader;
-
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class PageReaderTest {
 

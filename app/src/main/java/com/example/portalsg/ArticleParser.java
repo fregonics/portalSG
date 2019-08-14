@@ -1,11 +1,9 @@
-package com.example.portalsg.datareader;
+package com.example.portalsg;
 
-import android.graphics.pdf.PdfDocument;
-import android.util.Log;
+import com.example.portalsg.PageReader;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class ArticleParser {

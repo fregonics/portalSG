@@ -1,4 +1,4 @@
-package com.example.portalsg.datareader;
+package com.example.portalsg;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

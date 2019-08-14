@@ -2,8 +2,6 @@ package com.example.portalsg;
 
 import android.util.Log;
 
-import com.example.portalsg.datareader.PageReader;
-
 public class URLReader {
     public void main() {
         final String URL = "http://www.sgagora.com/sg";

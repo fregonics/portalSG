@@ -1,7 +1,4 @@
-package com.example.portalsg.preview;
-
-import com.example.portalsg.datareader.PageParser;
-import com.example.portalsg.datareader.PageReader;
+package com.example.portalsg;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -12,22 +9,22 @@ public class PostsPage {
     final String PAGE = "https://www.sgagora.com.br/sg/sg-noticias/";
 
     int pagina;
-    ArrayList<PostPreview> posts;
+    ArrayList<SGAgoraPostPreview> posts;
 
     public PostsPage(int i) throws Exception {
         pagina = i;
-        posts = new ArrayList<PostPreview>();
+        posts = new ArrayList<SGAgoraPostPreview>();
 
         String html = PageReader.getPageContent(PAGE);
         Elements postsFiltrados = PageParser.parse(html);
 
         for(Element e: postsFiltrados) {
-            PostPreview p = new PostPreview(e);
+            SGAgoraPostPreview p = new SGAgoraPostPreview(e);
             posts.add(p);
         }
     }
 
-    public PostPreview get(int i) {
+    public SGAgoraPostPreview get(int i) {
         return posts.get(i);
     }
 
@@ -39,7 +36,7 @@ public class PostsPage {
     //test
     public ArrayList<String> mostrarTitulos() {
         ArrayList<String> titulos = new ArrayList<String>();
-        for(PostPreview p : posts) {
+        for(SGAgoraPostPreview p : posts) {
             titulos.add(p.titulo);
         }
         return titulos;
@@ -47,7 +44,7 @@ public class PostsPage {
     //test
     public ArrayList<String> show() {
         ArrayList<String> data = new ArrayList<String>();
-        for(PostPreview p : posts) {
+        for(SGAgoraPostPreview p : posts) {
             data.add(p.titulo);
             data.add(p.detalhes);
             data.add(p.thumbnail);
