@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity
     RecyclerView recyclerView;
     RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager layoutManager;
-    PostsPage mPostsPage;
+    PostPreviewsPage mPostPreviewsPage;
     OnPreviewClickListener mainOnPreviewClickListener = this;
     ProgressBar mProgressBar;
     TextView mErrorReadingMessage;
@@ -148,12 +148,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onPreviewClick(int position) {
         Intent intent = new Intent(this, ArticleActivity.class);
-        intent.putExtra("url", mPostsPage.get(position).url);
+        intent.putExtra("url", mPostPreviewsPage.get(position).url);
         startActivity(intent);
     }
 
     public class MainRecyclerviewAdapter extends RecyclerView.Adapter<MainRecyclerviewAdapter.MyViewHolder> {
-        PostsPage mDataset;
+        PostPreviewsPage mDataset;
         OnPreviewClickListener mOnpreviewClickListener;
 
         // Provide a reference to the views for each data item
@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        public MainRecyclerviewAdapter(PostsPage posts, OnPreviewClickListener onPreviewClickListener) {
+        public MainRecyclerviewAdapter(PostPreviewsPage posts, OnPreviewClickListener onPreviewClickListener) {
             mDataset = posts;
             mOnpreviewClickListener = onPreviewClickListener;
         }
@@ -217,16 +217,16 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private class PostsPageReaderTask extends AsyncTask<String, String, PostsPage> {
+    private class PostsPageReaderTask extends AsyncTask<String, String, PostPreviewsPage> {
         @Override
-        protected PostsPage doInBackground(String... strings) {
-            PostsPage postsPage;
+        protected PostPreviewsPage doInBackground(String... strings) {
+            PostPreviewsPage postPreviewsPage;
             Log.d(PostsPageReaderTask.class.getSimpleName(), "VAI LER");
 
             try {
-                postsPage = new PostsPage(1);
+                postPreviewsPage = new PostPreviewsPage(1);
                 Log.d(PostsPageReaderTask.class.getSimpleName(), "LEU");
-                return postsPage;
+                return postPreviewsPage;
             } catch (Exception e) {
                 Log.d(PostsPageReaderTask.class.getSimpleName(), "NÃO CONSEGUIU LER");
                 return null;
@@ -240,16 +240,16 @@ public class MainActivity extends AppCompatActivity
         }
 
         @Override
-        protected void onPostExecute(PostsPage postsPage) {
-            super.onPostExecute(postsPage);
+        protected void onPostExecute(PostPreviewsPage postPreviewsPage) {
+            super.onPostExecute(postPreviewsPage);
             Log.d(PostsPageReaderTask.class.getSimpleName(), "NO POST EXECUTE");
-            if(postsPage == null) {
+            if(postPreviewsPage == null) {
                 Log.d(PostsPageReaderTask.class.getSimpleName(), "NÃO PASSOU CERTO");
                 mErrorReadingMessage.setVisibility(View.VISIBLE);
             }
-            mPostsPage = postsPage;
-            Log.d(PostsPageReaderTask.class.getSimpleName(),"LEU TITULO: " + mPostsPage.get(0).titulo);
-            mAdapter = new MainRecyclerviewAdapter(mPostsPage, mainOnPreviewClickListener);
+            mPostPreviewsPage = postPreviewsPage;
+            Log.d(PostsPageReaderTask.class.getSimpleName(),"LEU TITULO: " + mPostPreviewsPage.get(0).titulo);
+            mAdapter = new MainRecyclerviewAdapter(mPostPreviewsPage, mainOnPreviewClickListener);
             recyclerView.setAdapter(mAdapter);
             mProgressBar.setVisibility(View.INVISIBLE);
         }

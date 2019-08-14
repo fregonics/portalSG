@@ -1,4 +1,4 @@
-package com.example.portalsg;
+package com.example.portalsg.SGAgora;
 
 import org.jsoup.nodes.Element;
 

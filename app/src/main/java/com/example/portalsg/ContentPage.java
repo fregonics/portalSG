@@ -1,5 +1,7 @@
 package com.example.portalsg;
 
+import com.example.portalsg.SGAgora.SGAgoraArticleParser;
+
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
@@ -15,7 +17,7 @@ public class ContentPage {
     final int HEADER_IMAGE_INDEX = 2;
 
     public ContentPage(String url) throws Exception {
-        Elements[] elements = ArticleParser.parse(url);
+        Elements[] elements = SGAgoraArticleParser.parse(url);
         this.title = elements[TITLE_INDEX].first().text();
         this.headerImage = elements[HEADER_IMAGE_INDEX].first().attr("src");
 
