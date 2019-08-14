@@ -12,22 +12,22 @@ public class PostPreviewsPage {
     final String PAGE = "https://www.sgagora.com.br/sg/sg-noticias/";
 
     int pagina;
-    ArrayList<SGAgoraPostPreview> posts;
+    ArrayList<PostPreview> posts;
 
     public PostPreviewsPage(int i) throws Exception {
         pagina = i;
-        posts = new ArrayList<SGAgoraPostPreview>();
+        posts = new ArrayList<PostPreview>();
 
         String html = PageReader.getPageContent(PAGE);
         Elements postsFiltrados = SGAgoraPostsPageParser.parse(html);
 
         for(Element e: postsFiltrados) {
-            SGAgoraPostPreview p = new SGAgoraPostPreview(e);
+            PostPreview p = new SGAgoraPostPreview(e);
             posts.add(p);
         }
     }
 
-    public SGAgoraPostPreview get(int i) {
+    public PostPreview get(int i) {
         return posts.get(i);
     }
 
@@ -39,7 +39,7 @@ public class PostPreviewsPage {
     //test
     public ArrayList<String> mostrarTitulos() {
         ArrayList<String> titulos = new ArrayList<String>();
-        for(SGAgoraPostPreview p : posts) {
+        for(PostPreview p : posts) {
             titulos.add(p.titulo);
         }
         return titulos;
@@ -47,7 +47,7 @@ public class PostPreviewsPage {
     //test
     public ArrayList<String> show() {
         ArrayList<String> data = new ArrayList<String>();
-        for(SGAgoraPostPreview p : posts) {
+        for(PostPreview p : posts) {
             data.add(p.titulo);
             data.add(p.detalhes);
             data.add(p.thumbnail);
