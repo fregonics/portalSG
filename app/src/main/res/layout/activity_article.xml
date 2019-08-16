@@ -13,7 +13,8 @@
         android:layout_height="265dp"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.ArticleAppBarOverlay"
-        android:background="@color/articleBackground">
+        android:background="@color/articleBackground"
+        >
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
@@ -21,7 +22,7 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="false"
             app:contentScrim="@color/articleBackground"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
             app:toolbarId="@+id/toolbar">
 
             <ImageView
