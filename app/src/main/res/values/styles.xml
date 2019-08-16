@@ -13,11 +13,19 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.ArticleAppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" >
+        <item name="android:colorPrimary">@color/articleBackground</item>
+        <item name="android:colorPrimaryDark">@color/accentGrey</item>
+        <item name="android:textColor">@color/textBlack</item>
+    </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" >
+        <item name="android:colorPrimary">@color/articleBackground</item>
+    </style>
 
     <style name="ArticleTheme" parent="android:Theme">
+
         <item name="android:textViewStyle">@style/ArticleTextView</item>
     </style>
     <style name="ArticleTextView" parent="android:Widget.TextView">
