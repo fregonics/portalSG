@@ -31,4 +31,7 @@
     <style name="ArticleTextView" parent="android:Widget.TextView">
         <item name="android:textSize">40sp</item>
     </style>
+    <style name="AppTheme.ArticleHeadline" parent="android:Widget.TextView">
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

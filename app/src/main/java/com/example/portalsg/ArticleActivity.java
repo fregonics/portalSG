@@ -2,6 +2,7 @@ package com.example.portalsg;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
@@ -11,6 +12,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -84,6 +86,7 @@ public class ArticleActivity extends AppCompatActivity {
             return null;
         }
 
+
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
@@ -95,6 +98,8 @@ public class ArticleActivity extends AppCompatActivity {
 
             tvTitle.setText(mContentPage.title);
             tvTitle.setTextSize(22);
+            if(Build.VERSION.SDK_INT >= 23)
+                tvTitle.setTextAppearance(R.style.AppTheme_ArticleHeadline);
             mLinearLayout.addView(tvTitle);
             tvTitle.setLayoutParams(params);
 
