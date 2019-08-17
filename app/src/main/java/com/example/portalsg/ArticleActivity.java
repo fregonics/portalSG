@@ -98,8 +98,9 @@ public class ArticleActivity extends AppCompatActivity {
 
             tvTitle.setText(mContentPage.title);
             tvTitle.setTextSize(22);
-            if(Build.VERSION.SDK_INT >= 23)
+            if(Build.VERSION.SDK_INT >= 23) {
                 tvTitle.setTextAppearance(R.style.AppTheme_ArticleHeadline);
+            }
             mLinearLayout.addView(tvTitle);
             tvTitle.setLayoutParams(params);
 

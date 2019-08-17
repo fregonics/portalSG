@@ -17,6 +17,7 @@
         <item name="android:colorPrimary">@color/articleBackground</item>
         <item name="android:colorPrimaryDark">@color/accentGrey</item>
         <item name="android:textColor">@color/textBlack</item>
+        <item name="android:statusBarColor">@color/accentGrey</item>
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
@@ -28,6 +29,7 @@
 
         <item name="android:textViewStyle">@style/ArticleTextView</item>
     </style>
+
     <style name="ArticleTextView" parent="android:Widget.TextView">
         <item name="android:textSize">40sp</item>
     </style>
