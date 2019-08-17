@@ -91,7 +91,7 @@ public class ArticleActivity extends AppCompatActivity {
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
             Glide.with(getApplicationContext()).load(mContentPage.headerImage).into(mHeaderImage);
-
+            mHeaderImage.setScaleType(ImageView.ScaleType.FIT_XY);
             TextView tvTitle = new TextView(getApplicationContext());
             final LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
